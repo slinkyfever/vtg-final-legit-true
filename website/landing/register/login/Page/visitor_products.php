@@ -13,9 +13,9 @@ if (isset($_POST['add_to_cart'])) {
         $user_id = $_SESSION['user_id'];
 
         // Check if the user_id exists in the user table
-        $check_user = mysqli_query($conn, "SELECT * FROM `user` WHERE id = '$user_id'");
+        $check_user = mysqli_query($conn, "SELECT * FROM user WHERE id = '$user_id'");
         if (mysqli_num_rows($check_user) > 0) {
-            $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'");
+            $select_cart = mysqli_query($conn, "SELECT * FROM cart WHERE name = '$product_name' AND user_id = '$user_id'");
             if (mysqli_num_rows($select_cart) > 0) {
                 $message[] = 'Product already added to cart';
             } else {
@@ -75,7 +75,7 @@ if (isset($_POST['add_to_cart'])) {
     // Display messages
     if (isset($message)) {
         foreach ($message as $msg) {
-            echo '<div class="message"><span>' . $msg . '</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+            echo '<div class="message"><span>' . $msg . '</span> <i class="fas fa-times" onclick="this.parentElement.style.display = none;"></i> </div>';
         }
     }
     ?>
@@ -90,7 +90,7 @@ if (isset($_POST['add_to_cart'])) {
 
                 <?php
                 // Fetch products from the database
-                $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE quantity > 0");
+                $select_products = mysqli_query($conn, "SELECT * FROM products WHERE quantity > 0");
                 if (mysqli_num_rows($select_products) > 0) {
                     while ($fetch_product = mysqli_fetch_assoc($select_products)) {
                 ?>
@@ -99,7 +99,7 @@ if (isset($_POST['add_to_cart'])) {
                             <div class="box">
                                 <img src="uploaded_img/<?php echo $fetch_product['image']; ?>" alt="">
                                 <h3><?php echo $fetch_product['name']; ?></h3>
-                                <div class="price">$<?php echo $fetch_product['price']; ?>/-</div>
+                                <div class="price">Php<?php echo $fetch_product['price']; ?>/-</div>
                                 <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
                                 <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">
                                 <input type="hidden" name="product_image" value="<?php echo $fetch_product['image']; ?>">
